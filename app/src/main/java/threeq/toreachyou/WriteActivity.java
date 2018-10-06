@@ -5,6 +5,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,6 +26,12 @@ public class WriteActivity extends AppCompatActivity {
     String userName;
     FirebaseDatabase mFirebaseDatabase;
     DatabaseReference mDatabaseReference;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.tag_menu, menu);
+        return true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,5 +66,31 @@ public class WriteActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            case R.id.family:
+                mMessage.setTag("family");
+            case R.id.friend:
+                mMessage.setTag("friend");
+            case R.id.lover:
+                mMessage.setTag("lover");
+            case R.id.company:
+                mMessage.setTag("company");
+            case R.id.rest:
+                mMessage.setTag("rest");
+
+                //TODO 이미지 편집 기능 추가
+
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 }

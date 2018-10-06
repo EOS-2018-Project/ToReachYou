@@ -61,7 +61,9 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i = new Intent(MainActivity.this, ViewActivity.class);
                 String message =  mAdapter.getItem(position).message;
+                String title = mAdapter.getItem(position).title;
                 i.putExtra("message",message);
+                i.putExtra("title",title);
                 startActivity(i);
             }
         });

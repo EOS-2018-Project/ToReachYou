@@ -24,6 +24,8 @@
         <activity
             android:name=".WriteActivity"
             android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ViewActivity" />
     </application>
 
 </manifest>

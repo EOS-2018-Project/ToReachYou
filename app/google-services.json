@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "538813196910",
+    "firebase_url": "https://toreachyou-a0af8.firebaseio.com",
+    "project_id": "toreachyou-a0af8",
+    "storage_bucket": "toreachyou-a0af8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:538813196910:android:8985b880765957ef",
+        "android_client_info": {
+          "package_name": "threeq.toreachyou"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "538813196910-sjo0n5795572m097aiv3in8at093ipot.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "threeq.toreachyou",
+            "certificate_hash": "7274774a0bd84f3e56068c0736c98a07dfa0d283"
+          }
+        },
+        {
+          "client_id": "538813196910-qli2k3lsmt418ooaol9r6onu4u5s0vqa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKzTa-iLtJytEnKa53RvPfSNfEB0FRuSI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "538813196910-qli2k3lsmt418ooaol9r6onu4u5s0vqa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

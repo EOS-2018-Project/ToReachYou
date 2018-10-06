@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -31,10 +32,10 @@ public class WriteActivity extends AppCompatActivity {
         mTitle = (EditText) findViewById(R.id.title);
         mMessage = (EditText) findViewById(R.id.message);
         userName = "익명" + new Random().nextInt(1000);
-        family = (Button)findViewById(R.id.family);
-        friend = (Button)findViewById(R.id.friend);
-        lover = (Button)findViewById(R.id.lover);
-        company = (Button)findViewById(R.id.company);
+        family = (RadioButton)findViewById(R.id.family);
+        friend = (RadioButton)findViewById(R.id.friend);
+        lover = (RadioButton)findViewById(R.id.lover);
+        company = (RadioButton)findViewById(R.id.company);
 
         family.setOnClickListener(new View.OnClickListener() {
             @Override

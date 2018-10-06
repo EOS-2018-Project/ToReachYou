@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -59,11 +58,11 @@ public class MainActivity extends AppCompatActivity {
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
-                dialog.setTitle(mAdapter.getItem(i).title);
-                dialog.setMessage(mAdapter.getItem(i).message);
-                dialog.show();
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent i = new Intent(MainActivity.this, ViewActivity.class);
+                String message =  mAdapter.getItem(position).message;
+                i.putExtra("message",message);
+                startActivity(i);
             }
         });
     }
@@ -115,8 +114,6 @@ public class MainActivity extends AppCompatActivity {
         };
         mDatabaseReference.addChildEventListener(mChildEventListner);
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

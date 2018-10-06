@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Locale;
 
 public class ChatAdapter extends ArrayAdapter<ChatData> {
@@ -49,5 +50,9 @@ public class ChatAdapter extends ArrayAdapter<ChatData> {
         private TextView mTxtTitle;
         private TextView mTxtMessage;
         private TextView mTxtTime;
+
+        public String get(){
+            return mTxtMessage.getText().toString();
+        }
     }
 }

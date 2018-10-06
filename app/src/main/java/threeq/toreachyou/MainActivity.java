@@ -26,14 +26,14 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-    FirebaseDatabase mFirebaseDatabase;
-    DatabaseReference mDatabaseReference;
-    ChildEventListener mChildEventListner;
-    ChatAdapter mAdapter;
-    ListView mListView;
-    EditText mEditText;
-    Button mButton;
-    String userName;
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference mDatabaseReference;
+    private ChildEventListener mChildEventListner;
+    private ChatAdapter mAdapter;
+    private ListView mListView;
+    private EditText mEditText;
+    private Button mButton;
+    private String userName;
 
 
     @Override
@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference();
 
         //플로팅액션버튼 클릭이벤트
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

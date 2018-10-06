@@ -4,6 +4,8 @@ package threeq.toreachyou;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,7 +30,6 @@ public class WriteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write);
 
-        register = (Button) findViewById(R.id.register);
         mTitle = (EditText) findViewById(R.id.title);
         mMessage = (EditText) findViewById(R.id.message);
         userName = "익명" + new Random().nextInt(1000);
@@ -61,32 +62,49 @@ public class WriteActivity extends AppCompatActivity {
                 mMessage.setTag("company");
             }
         });
+    }
 
-        register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_write, menu);
+        return true;
+    }
 
-                mFirebaseDatabase = FirebaseDatabase.getInstance();
-                mDatabaseReference = mFirebaseDatabase.getReference("message");
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
 
-                String message = mMessage.getText().toString();
-                String title = mTitle.getText().toString();
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_register) {
 
-                if (!TextUtils.isEmpty(message) && !TextUtils.isEmpty(title)) {
+            mFirebaseDatabase = FirebaseDatabase.getInstance();
+            mDatabaseReference = mFirebaseDatabase.getReference("message");
 
-                    mMessage.setText("");
-                    ChatData chatData = new ChatData();
-                    chatData.userName = userName;
-                    chatData.title = title;
-                    chatData.message = message;
-                    chatData.time = System.currentTimeMillis();
-                    mDatabaseReference.push().setValue(chatData);
+            String message = mMessage.getText().toString();
+            String title = mTitle.getText().toString();
 
-                    finish();
-                } else {
-                    Toast.makeText(WriteActivity.this, "제목과 내용을 채워주세요", Toast.LENGTH_SHORT).show();
-                }
+            if (!TextUtils.isEmpty(message) && !TextUtils.isEmpty(title)) {
+
+                mMessage.setText("");
+                ChatData chatData = new ChatData();
+                chatData.userName = userName;
+                chatData.title = title;
+                chatData.message = message;
+                chatData.time = System.currentTimeMillis();
+                mDatabaseReference.push().setValue(chatData);
+
+                finish();
+            } else {
+                Toast.makeText(WriteActivity.this, "제목과 내용을 채워주세요", Toast.LENGTH_SHORT).show();
             }
-        });
+
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

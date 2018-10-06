@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">너에게 닿기를</string>
-    <string name="action_settings">설정</string>
+    <string name="action_register">등록</string>
 </resources>

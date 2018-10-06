@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -53,6 +54,16 @@ public class MainActivity extends AppCompatActivity {
         //파이어베이스에서 데이터 불러와서 뷰 초기화
         initView();
         initFirebaseDatabase();
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent i = new Intent(MainActivity.this, ViewActivity.class);
+                String message =  mAdapter.getItem(position).message;
+                i.putExtra("message",message);
+                startActivity(i);
+            }
+        });
     }
 
     private void initView(){

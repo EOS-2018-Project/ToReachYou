@@ -6,12 +6,14 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -54,6 +56,16 @@ public class MainActivity extends AppCompatActivity {
         //파이어베이스에서 데이터 불러와서 뷰 초기화
         initView();
         initFirebaseDatabase();
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+                dialog.setTitle(mAdapter.getItem(i).title);
+                dialog.setMessage(mAdapter.getItem(i).message);
+                dialog.show();
+            }
+        });
     }
 
     private void initView(){
@@ -103,6 +115,8 @@ public class MainActivity extends AppCompatActivity {
         };
         mDatabaseReference.addChildEventListener(mChildEventListner);
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

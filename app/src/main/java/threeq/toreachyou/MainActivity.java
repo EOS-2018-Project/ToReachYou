@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference();
 
         //플로팅액션버튼 클릭이벤트
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -57,6 +56,9 @@ public class MainActivity extends AppCompatActivity {
         //파이어베이스에서 데이터 불러와서 뷰 초기화
         initView();
         initFirebaseDatabase();
+
+        mAdapter = new ChatAdapter(this, android.R.layout.simple_dropdown_item_1line, new ChatAdapter());
+        mListView.setAdapter(mAdapter);
         userName = "익명" + new Random().nextInt(5000);
 
         //메시지 입력 이벤트 처리. 버튼이 아직 없어서 주석 처리

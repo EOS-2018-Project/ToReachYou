@@ -58,7 +58,7 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_end="60dp" />
 
-    <CheckBox
+    <RadioButton
         android:id="@+id/family"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -73,7 +73,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline2"
         app:layout_constraintVertical_bias="1.0" />
 
-    <CheckBox
+    <RadioButton
         android:id="@+id/friend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -87,7 +87,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline2"
         app:layout_constraintVertical_bias="0.0" />
 
-    <CheckBox
+    <RadioButton
         android:id="@+id/lover"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -102,7 +102,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline2"
         app:layout_constraintVertical_bias="0.0" />
 
-    <CheckBox
+    <RadioButton
         android:id="@+id/company"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

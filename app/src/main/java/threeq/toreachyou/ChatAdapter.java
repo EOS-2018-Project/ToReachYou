@@ -50,9 +50,5 @@ public class ChatAdapter extends ArrayAdapter<ChatData> {
         private TextView mTxtTitle;
         private TextView mTxtMessage;
         private TextView mTxtTime;
-
-        public String get(){
-            return mTxtMessage.getText().toString();
-        }
     }
 }

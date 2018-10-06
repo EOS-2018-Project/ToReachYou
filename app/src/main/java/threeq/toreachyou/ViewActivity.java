@@ -14,8 +14,11 @@ public class ViewActivity extends AppCompatActivity{
 
         Intent i = getIntent();
         String message = i.getExtras().getString("message");
+        String title = i.getExtras().getString("title");
 
         TextView textView = (TextView)findViewById(R.id.View_tvcontent);
+        TextView textView1 = (TextView)findViewById(R.id.View_tvtitle);
         textView.setText(message);
+        textView1.setText(title);
     }
 }

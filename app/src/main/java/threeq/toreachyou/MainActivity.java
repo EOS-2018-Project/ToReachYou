@@ -31,9 +31,6 @@ public class MainActivity extends AppCompatActivity {
     ChildEventListener mChildEventListner;
     ChatAdapter mAdapter;
     ListView mListView;
-    EditText mEditText;
-    Button mButton;
-    String userName;
 
 
     @Override
@@ -56,25 +53,6 @@ public class MainActivity extends AppCompatActivity {
         //파이어베이스에서 데이터 불러와서 뷰 초기화
         initView();
         initFirebaseDatabase();
-        userName = "익명" + new Random().nextInt(5000);
-
-        //메시지 입력 이벤트 처리. 버튼이 아직 없어서 주석 처리
-        /*mButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String message = mEditText.getText().toString();
-                if(!TextUtils.isEmpty(message)){
-                    if (!TextUtils.isEmpty(message)) {
-                        mEditText.setText("");
-                        ChatData chatData = new ChatData();
-                        chatData.userName = userName;
-                        chatData.message = message;
-                        chatData.time = System.currentTimeMillis();
-                        mDatabaseReference.push().setValue(chatData);
-                    }
-                }
-            }
-        });*/
     }
 
     private void initView(){

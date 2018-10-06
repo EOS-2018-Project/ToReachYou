@@ -22,12 +22,7 @@ public class WriteActivity extends AppCompatActivity {
     String userName;
     FirebaseDatabase mFirebaseDatabase;
     DatabaseReference mDatabaseReference;
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.tag_menu, menu);
-        return true;
-    }
+    Button family, friend, lover, company;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +33,35 @@ public class WriteActivity extends AppCompatActivity {
         mTitle = (EditText) findViewById(R.id.title);
         mMessage = (EditText) findViewById(R.id.message);
         userName = "익명" + new Random().nextInt(1000);
+        family = (Button)findViewById(R.id.family);
+        friend = (Button)findViewById(R.id.friend);
+        lover = (Button)findViewById(R.id.lover);
+        company = (Button)findViewById(R.id.company);
 
-
+        family.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                mMessage.setTag("family");
+            }
+        });
+        friend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                mMessage.setTag("friend");
+            }
+        });
+        lover.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                mMessage.setTag("lover");
+            }
+        });
+        company.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                mMessage.setTag("company");
+            }
+        });
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,7 +73,7 @@ public class WriteActivity extends AppCompatActivity {
                 String message = mMessage.getText().toString();
                 String title = mTitle.getText().toString();
 
-                if(!TextUtils.isEmpty(message) && !TextUtils.isEmpty(title)){
+                if (!TextUtils.isEmpty(message) && !TextUtils.isEmpty(title)) {
 
                     mMessage.setText("");
                     ChatData chatData = new ChatData();
@@ -62,40 +84,10 @@ public class WriteActivity extends AppCompatActivity {
                     mDatabaseReference.push().setValue(chatData);
 
                     finish();
-                }
-
-                else{
+                } else {
                     Toast.makeText(WriteActivity.this, "제목과 내용을 채워주세요", Toast.LENGTH_SHORT).show();
                 }
-
-
             }
         });
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
-            case R.id.family:
-                mMessage.setTag("family");
-            case R.id.friend:
-                mMessage.setTag("friend");
-            case R.id.lover:
-                mMessage.setTag("lover");
-            case R.id.company:
-                mMessage.setTag("company");
-            case R.id.rest:
-                mMessage.setTag("rest");
-
-                //TODO 이미지 편집 기능 추가
-
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-
-        }
     }
 }

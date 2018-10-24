@@ -2,45 +2,60 @@ package threeq.toreachyou;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.TextView;
 
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-    FirebaseDatabase mFirebaseDatabase;
-    DatabaseReference mDatabaseReference;
-    ChildEventListener mChildEventListner;
-    ChatAdapter mAdapter;
-    ListView mListView;
-
+    //탭레이아웃+뷰페이저
+    TabLayout tabLayout = null;
+    ViewPager viewPager = null;
+    MainTabPagerAdapter pagerAdapter = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //툴바 설정
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //탭레이아웃 + 뷰페이저 설정
+        tabLayout = (TabLayout) findViewById(R.id.main_tab);
+        viewPager = (ViewPager) findViewById(R.id.main_viewpager);
+        tabLayout.setupWithViewPager(viewPager);
+
+        //페이지어댑터 인스턴스화. 뷰페이저의 어댑토로 설정
+        pagerAdapter = new MainTabPagerAdapter(getSupportFragmentManager(), this);
+        viewPager.setAdapter(pagerAdapter);
+
+        //페이지가 바꼈을 때 이벤트리스너
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        //탭을 클릭했을 때 이벤트리스너
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+
 
         //플로팅액션버튼 클릭이벤트
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -52,11 +67,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //파이어베이스에서 데이터 불러와서 뷰 초기화
+       /* //파이어베이스에서 데이터 불러와서 뷰 초기화
         initView();
-        initFirebaseDatabase();
+        initFirebaseDatabase();*/
 
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i = new Intent(MainActivity.this, ViewActivity.class);
@@ -66,10 +81,10 @@ public class MainActivity extends AppCompatActivity {
                 i.putExtra("title",title);
                 startActivity(i);
             }
-        });
+        });*/
     }
 
-    private void initView(){
+    /*private void initView(){
         mListView = (ListView) findViewById(R.id.list_message);
         mAdapter = new ChatAdapter(this, 0);
         mListView.setAdapter(mAdapter);
@@ -124,5 +139,5 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy(){
         super.onDestroy();
         mDatabaseReference.removeEventListener(mChildEventListner);
-    }
+    }*/
 }

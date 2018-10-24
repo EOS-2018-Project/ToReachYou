@@ -40,7 +40,7 @@ public class ChatAdapter extends ArrayAdapter<ChatData> {
         viewHolder.mTxtUserName.setText(chatData.userName);
         viewHolder.mTxtTitle.setText(chatData.title);
         viewHolder.mTxtMessage.setText(chatData.message);
-        viewHolder.mTxtTime.setText(mSimpleDateFormat.format(chatData.time));
+        viewHolder.mTxtTime.setText(chatData.time);
 
         return convertView;
     }

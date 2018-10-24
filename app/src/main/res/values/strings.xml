@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">너에게 닿기를</string>
     <string name="action_register">등록</string>
+    <string name="family">가족</string>
+    <string name="friend">친구</string>
+    <string name="lover">연인</string>
+    <string name="company">동료</string>
 </resources>

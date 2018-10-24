@@ -58,6 +58,7 @@ public class Family extends Fragment {
         mListView.setAdapter(mAdapter);
     }
 
+
     private void initFirebaseDatabase(){
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mDatabaseReference = mFirebaseDatabase.getReference("family");

@@ -1,9 +1,13 @@
 package threeq.toreachyou;
 
 
+import android.app.Activity;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -124,5 +128,35 @@ public class WriteActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        //뒤로키를 눌렀을 때 한번 더 확인하는 다이얼로그 띄우기
+        if((keyCode == KeyEvent.KEYCODE_BACK)) {
+            AlertDialog.Builder d = new AlertDialog.Builder(WriteActivity.this);
+            d.setMessage("작성중인 내용을 저장하지 않고 나가시겠습니까?");
+
+            d.setPositiveButton("확인",new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    WriteActivity.this.finish();
+                }
+            });
+
+            d.setNegativeButton("취소",new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            d.show();
+
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

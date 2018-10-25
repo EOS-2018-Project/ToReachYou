@@ -7,4 +7,5 @@ public class ChatData {
     public String message; // 작성한 메시지
     public String tag;//선택한 태그(카테고리)
     public String time; // 작성한 시간
+    public int like; // 좋아요
 }

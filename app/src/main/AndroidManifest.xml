@@ -25,7 +25,8 @@
             android:name=".WriteActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".ViewActivity" />
+            android:name=".ViewActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

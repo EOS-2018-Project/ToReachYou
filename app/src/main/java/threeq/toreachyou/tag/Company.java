@@ -44,8 +44,16 @@ public class Company extends Fragment {
                 Intent i = new Intent(getContext(), ViewActivity.class);
                 String message =  mAdapter.getItem(position).message;
                 String title = mAdapter.getItem(position).title;
+                String tag = mAdapter.getItem(position).tag;
+                String key = mAdapter.getItem(position).firebaseKey;
+                int like = mAdapter.getItem(position).like;
+
+                //인텐트 엑스트라 넘겨주기
                 i.putExtra("message",message);
                 i.putExtra("title",title);
+                i.putExtra("like", like);
+                i.putExtra("key", key);
+                i.putExtra("tag", tag);
                 startActivity(i);
             }
         });
@@ -61,6 +69,7 @@ public class Company extends Fragment {
     private void initFirebaseDatabase(){
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mDatabaseReference = mFirebaseDatabase.getReference("company");
+
         mChildEventListner = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -73,19 +82,28 @@ public class Company extends Fragment {
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
+                //어레이어댑터에서는 아이템의 추가,삽입,삭제가 일어나야 notifyDataSetChanged가 작동한다고 해요
+                //아이템 내부의 정보 변화는 감지할 수가 없어서.. 몇시간 삽질 끝에 결국 없앴다가 다시 만들기를 선택했어요
+                //성능상 당연히 비효율적이겠지만 다루는 데이터가 매우 가벼운 편이므로 실질적 타격은 없을거라 믿고 있어요ㅎㅎ
+                mAdapter.clear();
+                ChatData chatData = dataSnapshot.getValue(ChatData.class);
+                chatData.firebaseKey = dataSnapshot.getKey();
+                mAdapter.add(chatData);
+                mListView.smoothScrollToPosition(mAdapter.getCount());
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-                String firebaseKey = dataSnapshot.getKey();
+                /*String firebaseKey = dataSnapshot.getKey();
                 int count = mAdapter.getCount();
                 for (int i = 0; i < count; i++) {
                     if (mAdapter.getItem(i).firebaseKey.equals(firebaseKey)) {
                         mAdapter.remove(mAdapter.getItem(i));
                         break;
                     }
-                }
+                }*/
+
+                //TODO:메시지 삭제기능을 구현한다면 손봐야할 부분
             }
 
             @Override
@@ -108,5 +126,9 @@ public class Company extends Fragment {
     public void onDestroy(){
         super.onDestroy();
         mDatabaseReference.removeEventListener(mChildEventListner);
+    }
+
+    public void onRestart(){
+
     }
 }

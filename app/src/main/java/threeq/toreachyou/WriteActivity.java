@@ -95,6 +95,7 @@ public class WriteActivity extends AppCompatActivity {
                 chatData.userName = userName;
                 chatData.title = title;
                 chatData.message = message;
+                chatData.like = 0;
 
                 //글을 올리는 시점의 시간 기록
                 Date date = new Date(System.currentTimeMillis());

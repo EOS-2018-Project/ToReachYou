@@ -3,6 +3,7 @@ package threeq.toreachyou;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -19,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
     TabLayout tabLayout = null;
     ViewPager viewPager = null;
     MainTabPagerAdapter pagerAdapter = null;
+    CoordinatorLayout coordinatorLayout;
+    static int tab_pos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +41,17 @@ public class MainActivity extends AppCompatActivity {
         pagerAdapter = new MainTabPagerAdapter(getSupportFragmentManager(), this);
         viewPager.setAdapter(pagerAdapter);
 
+        //SnackBar 사용을 위한 CoordinatorLayout 초기화
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator);
+
         //페이지가 바꼈을 때 이벤트리스너
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         //탭을 클릭했을 때 이벤트리스너
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
+                tab_pos = tab.getPosition();
+                viewPager.setCurrentItem(tab_pos);
             }
 
             @Override
@@ -77,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed(){
         if(System.currentTimeMillis()-time>=2000){
             time=System.currentTimeMillis();
-            Snackbar snack = Snackbar.make(findViewById(android.R.id.content), "'뒤로' 버튼을 한번 더 누르시면 종료됩니다.", Snackbar.LENGTH_SHORT);
+            Snackbar snack = Snackbar.make(coordinatorLayout, "'뒤로' 버튼을 한번 더 누르시면 종료됩니다.", Snackbar.LENGTH_SHORT);
             View view = snack.getView();
             view.setBackgroundColor(Color.LTGRAY);
             snack.show();

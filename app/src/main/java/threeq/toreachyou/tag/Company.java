@@ -76,8 +76,8 @@ public class Company extends Fragment {
                 ChatData chatData = dataSnapshot.getValue(ChatData.class);
                 chatData.firebaseKey = dataSnapshot.getKey();
                 if(chatData.tag.equals("company"))
-                    mAdapter.add(chatData);
-                mListView.smoothScrollToPosition(mAdapter.getCount());
+                    mAdapter.insert(chatData, 0); // 최신 내용이 위로 올라오도록 0번째 인덱스에 삽입
+                mListView.smoothScrollToPosition(0);
             }
 
             @Override
@@ -85,25 +85,46 @@ public class Company extends Fragment {
                 //어레이어댑터에서는 아이템의 추가,삽입,삭제가 일어나야 notifyDataSetChanged가 작동한다고 해요
                 //아이템 내부의 정보 변화는 감지할 수가 없어서.. 몇시간 삽질 끝에 결국 없앴다가 다시 만들기를 선택했어요
                 //성능상 당연히 비효율적이겠지만 다루는 데이터가 매우 가벼운 편이므로 실질적 타격은 없을거라 믿고 있어요ㅎㅎ
-                mAdapter.clear();
+
+                //위에는 멍청해서 그렇게 했었던거고 삽질삽질삽질 끝에 좀 더 똑똑한 방법으로 개편.. 뿌듷
                 ChatData chatData = dataSnapshot.getValue(ChatData.class);
-                chatData.firebaseKey = dataSnapshot.getKey();
-                mAdapter.add(chatData);
-                mListView.smoothScrollToPosition(mAdapter.getCount());
+                String firebaseKey = dataSnapshot.getKey();
+                int count = mAdapter.getCount();
+                for (int i = 0; i < count; i++) {
+                    if(mAdapter.getItem(i).firebaseKey != null){
+                        if (mAdapter.getItem(i).firebaseKey.equals(firebaseKey)) {
+                            mAdapter.getItem(i).like = chatData.like;
+                            //mAdapter.remove(mAdapter.getItem(i));
+                            //mAdapter.insert(chatData, i);
+                            //mAdapter.notifyDataSetChanged();
+                            //mAdapter = (ChatAdapter) mListView.getAdapter();
+                            mAdapter.notifyDataSetChanged();
+                            break;
+                        }
+                    }
+                    /*else{
+                        mAdapter.notifyDataSetChanged();
+                        mAdapter = (ChatAdapter) mListView.getAdapter();
+                        if (mAdapter.getItem(i).firebaseKey.equals(firebaseKey)) {
+                            mAdapter.remove(mAdapter.getItem(i));
+                            mAdapter.insert(chatData, i);
+                            break;
+                        }
+                    }*/
+                }
+                mListView.smoothScrollToPosition(0);
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-                /*String firebaseKey = dataSnapshot.getKey();
+                String firebaseKey = dataSnapshot.getKey();
                 int count = mAdapter.getCount();
                 for (int i = 0; i < count; i++) {
                     if (mAdapter.getItem(i).firebaseKey.equals(firebaseKey)) {
                         mAdapter.remove(mAdapter.getItem(i));
                         break;
                     }
-                }*/
-
-                //TODO:메시지 삭제기능을 구현한다면 손봐야할 부분
+                }
             }
 
             @Override

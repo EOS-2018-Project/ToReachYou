@@ -48,6 +48,22 @@ public class WriteActivity extends AppCompatActivity {
         friend = (RadioButton)findViewById(R.id.friend);
         lover = (RadioButton)findViewById(R.id.lover);
         company = (RadioButton)findViewById(R.id.company);
+
+        //보고 있던 게시판(?) 위치가 디폴트 게시판(라디오버튼 체크)
+        switch (MainActivity.tab_pos){
+            case 0:
+                radioGroup.check(R.id.family);
+                break;
+            case 1:
+                radioGroup.check(R.id.friend);
+                break;
+            case 2:
+                radioGroup.check(R.id.lover);
+                break;
+            case 3:
+                radioGroup.check(R.id.company);
+                break;
+        }
     }
 
     @Override

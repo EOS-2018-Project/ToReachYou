@@ -78,8 +78,8 @@ public class Friend extends Fragment {
                 data = dataSnapshot.getValue(ChatData.class);
                 if(data.tag.equals("friend"))
                     data.firebaseKey = dataSnapshot.getKey();
-                mAdapter.add(data);
-                mListView.smoothScrollToPosition(mAdapter.getCount());
+                mAdapter.insert(data, 0); // 최신 내용이 위로 올라오도록 0번째 인덱스에 삽입
+                mListView.smoothScrollToPosition(0);
             }
 
             @Override
@@ -88,24 +88,32 @@ public class Friend extends Fragment {
                 //아이템 내부의 정보 변화는 감지할 수가 없어서.. 몇시간 삽질 끝에 결국 없앴다가 다시 만들기를 선택했어요
                 //성능상 당연히 비효율적이겠지만 다루는 데이터가 매우 가벼운 편이므로 실질적 타격은 없을거라 믿고 있어요ㅎㅎ
 
-                //위 주석은 흔적기관.(고민의 흔적을 지우기 아까워서) -> 계속 삽질하다가 파이어베이스 구조를 깨달아서(?)
-                //원래 데이터 삭제하고 해당 인덱스에 새 데이터 삽입하는 방식으로 바꾸려는 시도ing
+                //위에는 멍청해서 그렇게 했었던거고 삽질삽질삽질 끝에 좀 더 똑똑한 방법으로 개편.. 뿌듷
                 ChatData chatData = dataSnapshot.getValue(ChatData.class);
-                int index = 0;
-                for(int i=0; i<mAdapter.getCount(); i++){
-                    if(mAdapter.getItem(i) == chatData){
-                        index = i; break;
+                String firebaseKey = dataSnapshot.getKey();
+                int count = mAdapter.getCount();
+                for (int i = 0; i < count; i++) {
+                    if(mAdapter.getItem(i).firebaseKey != null){
+                        if (mAdapter.getItem(i).firebaseKey.equals(firebaseKey)) {
+                            mAdapter.getItem(i).like = chatData.like;
+                            mAdapter.notifyDataSetChanged();
+                            break;
+                        }
                     }
                 }
-                Log.d("index:", Integer.toString(index));// TODO: 위에 반복문 돌려도 로그보면 무조건 0만 리턴됨
-                mAdapter.remove(mAdapter.getItem(index));
-                mAdapter.insert(chatData, index);
-                mAdapter.notifyDataSetChanged();
+                mListView.smoothScrollToPosition(0);
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
+                String firebaseKey = dataSnapshot.getKey();
+                int count = mAdapter.getCount();
+                for (int i = 0; i < count; i++) {
+                    if (mAdapter.getItem(i).firebaseKey.equals(firebaseKey)) {
+                        mAdapter.remove(mAdapter.getItem(i));
+                        break;
+                    }
+                }
             }
 
             @Override

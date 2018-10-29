@@ -66,6 +66,18 @@ public class ViewActivity extends AppCompatActivity{
             }
         });
 
+        Button share = (Button) findViewById(R.id.btn_share);
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_TEXT, message);
+                Intent chooser = Intent.createChooser(intent, "너에게 닿기를..");
+                startActivity(chooser);
+            }
+        });
+
 
     }
 

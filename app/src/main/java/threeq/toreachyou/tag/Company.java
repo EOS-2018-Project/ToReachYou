@@ -44,10 +44,9 @@ public class Company extends Fragment {
                 Intent i = new Intent(getContext(), ViewActivity.class);
                 String message =  mAdapter.getItem(position).message;
                 String title = mAdapter.getItem(position).title;
-                String tag = mAdapter.getItem(position).tag;
                 String key = mAdapter.getItem(position).firebaseKey;
+                String tag = mAdapter.getItem(position).tag;
                 int like = mAdapter.getItem(position).like;
-
                 //인텐트 엑스트라 넘겨주기
                 i.putExtra("message",message);
                 i.putExtra("title",title);
@@ -66,10 +65,10 @@ public class Company extends Fragment {
         mListView.setAdapter(mAdapter);
     }
 
+
     private void initFirebaseDatabase(){
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mDatabaseReference = mFirebaseDatabase.getReference("company");
-
         mChildEventListner = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -94,23 +93,10 @@ public class Company extends Fragment {
                     if(mAdapter.getItem(i).firebaseKey != null){
                         if (mAdapter.getItem(i).firebaseKey.equals(firebaseKey)) {
                             mAdapter.getItem(i).like = chatData.like;
-                            //mAdapter.remove(mAdapter.getItem(i));
-                            //mAdapter.insert(chatData, i);
-                            //mAdapter.notifyDataSetChanged();
-                            //mAdapter = (ChatAdapter) mListView.getAdapter();
                             mAdapter.notifyDataSetChanged();
                             break;
                         }
                     }
-                    /*else{
-                        mAdapter.notifyDataSetChanged();
-                        mAdapter = (ChatAdapter) mListView.getAdapter();
-                        if (mAdapter.getItem(i).firebaseKey.equals(firebaseKey)) {
-                            mAdapter.remove(mAdapter.getItem(i));
-                            mAdapter.insert(chatData, i);
-                            break;
-                        }
-                    }*/
                 }
                 mListView.smoothScrollToPosition(0);
             }
@@ -147,9 +133,5 @@ public class Company extends Fragment {
     public void onDestroy(){
         super.onDestroy();
         mDatabaseReference.removeEventListener(mChildEventListner);
-    }
-
-    public void onRestart(){
-
     }
 }

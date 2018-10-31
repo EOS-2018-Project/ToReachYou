@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <LinearLayout
+        android:background="#642802"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="7dp"
+            android:textColor="#ffffff"
+            android:textSize="30sp"
+            android:text="오늘의 질문"/><!--다이얼로그 제목-->
+    </LinearLayout>
+    <LinearLayout
+        android:background="#ba824a"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/yh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="top|left"
+            android:padding="5dp"
+            android:textColor="#ffffff"
+            android:textSize="15sp"/> <!--다이얼로그 내용-->
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#ffffff"/>
+    <LinearLayout
+        android:background="#c1a172"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/ok"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:text="확인"/>
+    </LinearLayout>
+</LinearLayout>

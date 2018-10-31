@@ -5,13 +5,18 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class ViewActivity extends AppCompatActivity{
 
@@ -21,6 +26,7 @@ public class ViewActivity extends AppCompatActivity{
     TextView like_count;
     FirebaseDatabase mFirebaseDatabase;
     DatabaseReference mDatabaseReference;
+    String tempID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,9 +66,17 @@ public class ViewActivity extends AppCompatActivity{
         like_click.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 like++;
                 like_count.setText(String.valueOf(like));
                 mDatabaseReference.child(key).child("like").setValue(like);
+
+
+                //파이어베이스에 좋아요한 사람의 id 푸시...하고 받아와야하는데 받아오는게 너무 어려워서 보류
+                String user = "user" + String.valueOf(like);
+                mDatabaseReference.child(key).child("like_user").child(user).push().setValue(MainActivity.uuid);
+
+
             }
         });
 
@@ -78,6 +92,36 @@ public class ViewActivity extends AppCompatActivity{
             }
         });
 
+        //데이터 변동시 호출(좋아요한 사람 id 푸시 됐을 때 발동)
+        /*FirebaseDatabase.getInstance().getReference().addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                for(int i=0; i < like; i++){
+                    String user = "user" + String.valueOf(i);
+                    dataSnapshot.child(key).child("like_user").child(user).getValue(ChatData.class);
+                }
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });*/
+
+
 
     }
 
@@ -92,4 +136,5 @@ public class ViewActivity extends AppCompatActivity{
         }
         return super.onOptionsItemSelected(item);
     }
+
 }
